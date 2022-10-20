@@ -22,7 +22,7 @@ function App() {
         }
       }, {
       headers: {
-        Authorization: 'Bearer EAALy5OfzdYwBAOtpiDLHsZAs2zZBtj5l4TL2TwvJYuAHndLXR0GdXTIbi5apyH49DB4SdIQWVgYDaWhnDkBFUeZAZATzFV8papOoHHWZBlLhLT6Y5zkBNtkVa9YguRNFaX2isT1aJNQHvwHnr9yoRLYpQqmzShEY6N5ExLnzZACCV7C1KJUbEusMB49Gb0QqQwSqO6jfdtvQZDZD',
+        Authorization: process.env.FACEBOOK_API_KEY,
         ContentType: "application/json"
       }
     })
@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     if (receiverState === true) {
       setInterval(() => {
-        axios.get(process.env.REACT_APP_API_URL + "/api/message").then(resp => {
+        axios.get(process.env.REACT_APP_API_URL + "/message").then(resp => {
           if (resp.result.message.entry[0].changes[0].value.messages[0] && resp.result.message.entry[0].changes[0].value.messages[0].id !== currentMsgId) {
             setCurrentMsgId(resp.result.message.entry[0].changes[0].value.messages[0].id);
             let li = document.createElement("li");

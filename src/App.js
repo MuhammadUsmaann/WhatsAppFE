@@ -22,8 +22,7 @@ function App() {
         }
       }, {
       headers: {
-        Authorization: process.env.FACEBOOK_API_KEY,
-        ContentType: "application/json"
+        Authorization: process.env.REACT_APP_FACEBOOK_API_KEY,
       }
     })
       .then(res => {
@@ -55,7 +54,7 @@ function App() {
     localStorage.clear()
     const timer =  setInterval(() => {
       getMessage();
-    }, 10000);
+    }, 1000);
 
   }, [])
   return (
@@ -65,7 +64,7 @@ function App() {
         <input id="input" onChange={(e) => setMessage(e.target.value)} value={message} type="text" name="Text" />
         <button type="submit">Send by </button>
       </form>
-      <ul id="messages" ref={ref}></ul>
+      <ul style={{listStyle:"none"}} id="messages" ref={ref}></ul>
     </>
   );
 }

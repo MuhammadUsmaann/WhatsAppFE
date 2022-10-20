@@ -10,7 +10,7 @@ function App() {
   const formSubmit = (e) => {
     e.preventDefault();
     axios.post(
-      `${process.env.REACT_APP_API_FACEBOOK_API}/messages `,
+      `https://graph.facebook.com/v14.0/106183675617980/messages`,
       {
         messaging_product: "whatsapp",
         recipient_type: "individual",
@@ -28,27 +28,36 @@ function App() {
     })
       .then(res => {
         let li = document.createElement("li");
-        li.style.backgroundColor = 'lightgray';
+        li.style.backgroundColor = 'yellow';
         li.textContent = message;
         ref.current.append(li);
       })
+
+
+
   }
+
+  const getMessage = () => {
+      axios.get(process.env.REACT_APP_API_URL + "/message").then(resp => {
+     
+      if ( resp.data.result[0].message.entry[0].changes[0].value.messages[0].id !== localStorage.getItem("prevId")) {
+        localStorage.setItem("prevId" , resp?.data?.result[0]?.message?.entry[0]?.changes[0]?.value?.messages[0]?.id)
+        let li = document.createElement("li");
+        li.style.backgroundColor = 'lightgray';
+        li.textContent = resp.data.result[0].message.entry[0].changes[0].value.messages[0].text.body;
+        ref.current.append(li);
+      }
+    })
+
+  }
+
   useEffect(() => {
-    if (receiverState === true) {
-      setInterval(() => {
-        axios.get(process.env.REACT_APP_API_URL + "/message").then(resp => {
-          if (resp.result.message.entry[0].changes[0].value.messages[0] && resp.result.message.entry[0].changes[0].value.messages[0].id !== currentMsgId) {
-            setCurrentMsgId(resp.result.message.entry[0].changes[0].value.messages[0].id);
-            let li = document.createElement("li");
-            li.style.backgroundColor = 'lightgray';
-            li.textContent = resp.result.message.entry[0].changes[0].value.messages[0].text.body;
-            ref.current.append(li);
-          }
-        })
-      }, 1000);
-      setReceiverState(false)
-    }
-  }, [currentMsgId, receiverState])
+    localStorage.clear()
+    const timer =  setInterval(() => {
+      getMessage();
+    }, 10000);
+
+  }, [])
   return (
     <>
 

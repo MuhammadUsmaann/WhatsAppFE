@@ -4,13 +4,13 @@ import axios from "axios"
 function App() {
   const ref = useRef();
   const [message, setMessage] = useState("");
-  const [currentMsgId,setCurrentMsgId] = useState("")
-  const [receiverState, setReceiverState]  =useState(true);
+  const [currentMsgId, setCurrentMsgId] = useState("")
+  const [receiverState, setReceiverState] = useState(true);
 
   const formSubmit = (e) => {
     e.preventDefault();
     axios.post(
-      `https://graph.facebook.com/v14.0/106183675617980/messages `,
+      `${process.env.REACT_APP_API_FACEBOOK_API}/messages `,
       {
         messaging_product: "whatsapp",
         recipient_type: "individual",
@@ -33,11 +33,11 @@ function App() {
         ref.current.append(li);
       })
   }
-  useEffect(()=>{
-    if(receiverState === true){
+  useEffect(() => {
+    if (receiverState === true) {
       setInterval(() => {
-        axios.get("https://different-tan-pocketbook.cyclic.app/api/message").then(resp=>{
-          if(resp.result.message.entry[0].changes[0].value.messages[0] && resp.result.message.entry[0].changes[0].value.messages[0].id !== currentMsgId ){
+        axios.get(process.env.REACT_APP_API_URL + "/api/message").then(resp => {
+          if (resp.result.message.entry[0].changes[0].value.messages[0] && resp.result.message.entry[0].changes[0].value.messages[0].id !== currentMsgId) {
             setCurrentMsgId(resp.result.message.entry[0].changes[0].value.messages[0].id);
             let li = document.createElement("li");
             li.style.backgroundColor = 'lightgray';
@@ -48,10 +48,10 @@ function App() {
       }, 1000);
       setReceiverState(false)
     }
-  },[currentMsgId, receiverState])
+  }, [currentMsgId, receiverState])
   return (
     <>
-      
+
       <form onSubmit={formSubmit} id="form" action="">
         <input id="input" onChange={(e) => setMessage(e.target.value)} value={message} type="text" name="Text" />
         <button type="submit">Send by </button>

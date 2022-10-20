@@ -22,7 +22,7 @@ function App() {
         }
       }, {
       headers: {
-        Authorization: process.env.REACT_APP_FACEBOOK_API_KEY,
+        Authorization: 'Bearer EAALy5OfzdYwBAA5ZCmMueSBnijkz7aYHNLfZCizwLXerVRHX7FNvsbwxVZCg9DTMtJBep4G0f2CDE6zjEMZCvzQiElwpoQwoK6axjhoTucDXcITLQyMINGoRit3EjXMLUFG8JrpYY3qK2qffxWorgUdBCVYxkybiOuLD1RRHz1yhbu6liNZBpqvTXJ4ej6K0E5lZAhFaFpLQZDZD',
       }
     })
       .then(res => {

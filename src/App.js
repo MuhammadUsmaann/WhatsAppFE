@@ -22,7 +22,7 @@ function App() {
         }
       }, {
       headers: {
-        Authorization: 'Bearer EAALy5OfzdYwBAA5ZCmMueSBnijkz7aYHNLfZCizwLXerVRHX7FNvsbwxVZCg9DTMtJBep4G0f2CDE6zjEMZCvzQiElwpoQwoK6axjhoTucDXcITLQyMINGoRit3EjXMLUFG8JrpYY3qK2qffxWorgUdBCVYxkybiOuLD1RRHz1yhbu6liNZBpqvTXJ4ej6K0E5lZAhFaFpLQZDZD',
+        Authorization: 'Bearer EAALy5OfzdYwBAMZARHd9K2IZBXOxW7ZCoBJsmiCMgeaSHI1VO039IJ34CKWgaNIZBT4ryXEs0vLJvOpfjdXNpGuQd8DNjFgZCladDoKmd407LmHg5e4WtdfbUInQmmk8aSkakOBus969yfg1KL7HEQpnUSXnS4ZBdtiuz4jyGIiMiSqOf7iFtixrog39tscSqkumxz8AAYawZDZD',
       }
     })
       .then(res => {

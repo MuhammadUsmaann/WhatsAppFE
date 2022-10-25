@@ -66,22 +66,55 @@ function App() {
 
   const downloadFile = async (evt) => {
     evt.preventDefault();
-    await axios({
-      url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+
+    fetch("https://lookaside.fbsbx.com/whatsapp_business/attachments/?mid=1257666194798353&ext=1666695484&hash=ATs5UxpE3YGt23Gl-LLRecSSVBNMnmsMVaNgc3L_R8TU0g", {
       method: "GET",
       responseType: "blob",
       headers: { 
-        'Authorization': 'Bearer EAALy5OfzdYwBAFAsLMy8yd9hd7AyotOau8DEtagNWCimsHtbGOZCkpCqWwm1kG1K36DUzlUt3VlmGb1TQ8ONZCyZABmfxLMc81TlMnwDbpv5cn0E7FMwf9giZBvvwNFYRAsfe4ZANWZBmtqQtBjrSLVnESeLwxfqsYj59ZCRg1UOMRoPhNVeU6pqNTPbtDPqxApIZBJ8t4T8wQZDZD'
+        'Authorization': 'Bearer Bearer EAALy5OfzdYwBAB4k5cOnAiev1ij6NgcSevZBfiRY4UfKQ2VYTgvNbZAgqAO2DIF56HrRliZAgQplswpnlUFNr3YZB7oZC2gGPKmfqgJr37qBTVLlRCW9CxRnAu2M4qDki3fXrcZBK7Sp1PyRXJOX8r4HWE54ndFyRIXN8zkw0NOEKPec6wNlP9FTgKrfbAqzKZBD8ZAqZAFBQ2QZDZD'
       }
-    }).then((response) => {
-      console.log(response);
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "file.pdf");
-      document.body.appendChild(link);
-      link.click();
-    });
+    })
+      .then((data) => {
+        // IMP to convert your json or other response to blob ( for this you have to check your api response is file / binary
+        return data.blob();
+      })
+      .then((response) => {
+        // var reader = new FileReader();
+        // reader.onload = function () {
+        //   var b64 = reader.result;
+        //   console.log("This is base64", b64);
+        //   document.getElementById("imagetoShow").src = b64;
+        // };
+        // reader.readAsDataURL(data);
+        console.log(response);
+        const url = window.URL.createObjectURL(new Blob([response]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "file.jpeg");
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch((error) => {
+        error.text().then((errorMessage) => {
+          console.log(errorMessage);
+        });
+      });
+    // await axios({
+    //   url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+    //   method: "GET",
+    //   responseType: "blob",
+    //   headers: {
+    //     'Authorization': 'Bearer EAALy5OfzdYwBAFAsLMy8yd9hd7AyotOau8DEtagNWCimsHtbGOZCkpCqWwm1kG1K36DUzlUt3VlmGb1TQ8ONZCyZABmfxLMc81TlMnwDbpv5cn0E7FMwf9giZBvvwNFYRAsfe4ZANWZBmtqQtBjrSLVnESeLwxfqsYj59ZCRg1UOMRoPhNVeU6pqNTPbtDPqxApIZBJ8t4T8wQZDZD'
+    //   }
+    // }).then((response) => {
+    //   console.log(response);
+    //   const url = window.URL.createObjectURL(new Blob([response.data]));
+    //   const link = document.createElement("a");
+    //   link.href = url;
+    //   link.setAttribute("download", "file.pdf");
+    //   document.body.appendChild(link);
+    //   link.click();
+    // });
   };
   return (
     <>
@@ -93,6 +126,7 @@ function App() {
       <ul style={{listStyle:"none"}} id="messages" ref={ref}></ul> */}
       <div>
         <button onClick={(evt) => downloadFile(evt)}>Download</button>
+        <image src="" width="200" height="200" id="imagetoShow" />
       </div>
     </>
   );
